@@ -20,10 +20,6 @@ public class PlayerController : MonoBehaviour
     float smoothTurnVelocity;
     public float smoothTurnTime = 0.1f;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
 
     // Update is called once per frame
     void Update()
