@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Vector3 moveDirection;
     public CharacterController controller;
 
     public float speed;
     public float sprintSpeed;
+    public float slideSlopeSpeed;
     public float gravity;
     public float jumpHeight;
 
     Vector3 velocity;
-    bool isGrounded, isSprinting;
+    public bool isGrounded, isSprinting;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -20,6 +22,9 @@ public class PlayerController : MonoBehaviour
 
     float smoothTurnVelocity;
     public float smoothTurnTime = 0.1f;
+
+    private float groundRayDistance = 1;
+    private RaycastHit slopeHit;
 
     void Start()
     {
@@ -34,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = -20f;
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -47,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             isSprinting = true;
         }
-        
+
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             isSprinting = false;
@@ -60,22 +65,49 @@ public class PlayerController : MonoBehaviour
         //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        if (moveDirection.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothTurnVelocity, smoothTurnTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             if (!isSprinting)
             {
-                controller.Move(direction.normalized * speed * Time.deltaTime);
+                controller.Move(moveDirection.normalized * speed * Time.deltaTime);
             }
             else if (isSprinting)
             {
-                controller.Move(direction.normalized * Mathf.Lerp(speed, sprintSpeed, 1) * Time.deltaTime);
+                controller.Move(moveDirection.normalized * Mathf.Lerp(speed, sprintSpeed, 10) * Time.deltaTime);
             }
         }
+
+        if (OnSteepSlope())
+        {
+            SteepSloveMovement();
+        }
+    }
+
+    private bool OnSteepSlope()
+    {
+        if (!isGrounded) return false;
+    
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, (controller.height / 2) + groundRayDistance))
+        {
+            float slopeAngle = Vector3.Angle(slopeHit.normal, Vector3.up);
+            if (slopeAngle > controller.slopeLimit) return true;
+        }
+        return false;
+
+    }
+
+    private void SteepSloveMovement()
+    {
+        Vector3 slopeDirection = Vector3.up - slopeHit.normal * Vector3.Dot(Vector3.up, slopeHit.normal);
+        float slideSpeed = speed + slideSlopeSpeed + Time.deltaTime;
+
+        moveDirection = slopeDirection * -slideSpeed;
+        moveDirection.y = moveDirection.y - slopeHit.point.y; 
     }
 }
