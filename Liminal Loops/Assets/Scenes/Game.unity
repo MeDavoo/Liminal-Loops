@@ -311,14 +311,13 @@ MonoBehaviour:
   controller: {fileID: 623646650}
   speed: 8
   sprintSpeed: 12
-  gravity: -45
+  slideSlopeSpeed: 3
   jumpHeight: 4
   groundCheck: {fileID: 721209322}
-  groundDistance: 1
+  groundDistance: 0.5
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  smoothTurnTime: 0.1
 --- !u!143 &623646650
 CharacterController:
   m_ObjectHideFlags: 0
@@ -330,7 +329,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.05
+  m_Height: 2
   m_Radius: 0.49
   m_SlopeLimit: 50
   m_StepOffset: 0.3
@@ -733,7 +732,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281759441}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1671093963
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,8 +760,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671093963}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.628, z: 0.38}
-  m_LocalScale: {x: 0.44703197, y: 0.43107, z: 0.9488}
+  m_LocalPosition: {x: 0, y: 0.564, z: 0.38}
+  m_LocalScale: {x: 0.44703197, y: 0.22623168, z: 0.9488}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623646648}
@@ -830,7 +829,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671093963}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1872234848
 GameObject:
   m_ObjectHideFlags: 0
