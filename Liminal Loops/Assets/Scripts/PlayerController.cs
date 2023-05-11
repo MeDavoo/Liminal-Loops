@@ -10,18 +10,18 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float sprintSpeed;
     public float slideSlopeSpeed;
-    public float gravity;
+    private float gravity = -45;
     public float jumpHeight;
 
     Vector3 velocity;
-    public bool isGrounded, isSprinting;
+    bool isGrounded, isSprinting;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     float smoothTurnVelocity;
-    public float smoothTurnTime = 0.1f;
+    private float smoothTurnTime = 0.1f;
 
     private float groundRayDistance = 1;
     private RaycastHit slopeHit;
