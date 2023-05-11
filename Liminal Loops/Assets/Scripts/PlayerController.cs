@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float sprintSpeed;
-    public float slideSlopeSpeed;
     private float gravity = -45;
     public float jumpHeight;
 
     Vector3 velocity;
-    bool isGrounded, isSprinting;
+    public bool isGrounded, isSprinting;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -22,9 +21,6 @@ public class PlayerController : MonoBehaviour
 
     float smoothTurnVelocity;
     private float smoothTurnTime = 0.1f;
-
-    private float groundRayDistance = 1;
-    private RaycastHit slopeHit;
 
     void Start()
     {
@@ -39,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -20f;
+            velocity.y = -10f;
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -82,32 +78,7 @@ public class PlayerController : MonoBehaviour
                 controller.Move(moveDirection.normalized * Mathf.Lerp(speed, sprintSpeed, 10) * Time.deltaTime);
             }
         }
-
-        if (OnSteepSlope())
-        {
-            SteepSloveMovement();
-        }
     }
 
-    private bool OnSteepSlope()
-    {
-        if (!isGrounded) return false;
-    
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, (controller.height / 2) + groundRayDistance))
-        {
-            float slopeAngle = Vector3.Angle(slopeHit.normal, Vector3.up);
-            if (slopeAngle > controller.slopeLimit) return true;
-        }
-        return false;
 
-    }
-
-    private void SteepSloveMovement()
-    {
-        Vector3 slopeDirection = Vector3.up - slopeHit.normal * Vector3.Dot(Vector3.up, slopeHit.normal);
-        float slideSpeed = speed + slideSlopeSpeed + Time.deltaTime;
-
-        moveDirection = slopeDirection * -slideSpeed;
-        moveDirection.y = moveDirection.y - slopeHit.point.y; 
-    }
 }
