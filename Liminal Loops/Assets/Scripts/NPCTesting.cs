@@ -10,6 +10,9 @@ public class NPCTesting : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
+    public float hours;
+    public float minutes;
+
     private void OnEnable()
     {
         TimeManager.OnMinuteChanged += TimeCheck;
@@ -30,7 +33,7 @@ public class NPCTesting : MonoBehaviour
 
     private void TimeCheck()
     {
-        if (TimeManager.Hour == 10 && TimeManager.Minute == 30)
+        if (TimeManager.Hour == hours && TimeManager.Minute == minutes)
         {
             navMeshAgent.destination = movePosTransform.position;
         }
