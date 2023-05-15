@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class NPCTesting : MonoBehaviour
 {
@@ -10,18 +11,22 @@ public class NPCTesting : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
-    public float hours;
-    public float minutes;
+    public NpcData npcData;
 
+    public int currentTask = 0;
     private void OnEnable()
     {
         TimeManager.OnMinuteChanged += TimeCheck;
+        TimeManager.OnHourChanged += TimeCheck;
+        TimeManager.OnDayChanged += TimeCheck;
     }
 
 
     private void OnDisable()
     {
         TimeManager.OnMinuteChanged -= TimeCheck;
+        TimeManager.OnHourChanged -= TimeCheck;
+        TimeManager.OnDayChanged -= TimeCheck;
     }
 
 
@@ -33,9 +38,14 @@ public class NPCTesting : MonoBehaviour
 
     private void TimeCheck()
     {
-        if (TimeManager.Hour == hours && TimeManager.Minute == minutes)
+        if (TimeManager.Hour == npcData.NpcRoutine[currentTask].Hour && TimeManager.Minute == npcData.NpcRoutine[currentTask].Minuit && TimeManager.Day == npcData.NpcRoutine[currentTask].Day)
         {
-            navMeshAgent.destination = movePosTransform.position;
+            navMeshAgent.destination = new Vector3(npcData.NpcRoutine[currentTask].coordinates.x, npcData.NpcRoutine[currentTask].coordinates.y, npcData.NpcRoutine[currentTask].coordinates.z);
+            navMeshAgent.speed = npcData.NpcRoutine[currentTask].speed;
+            if (npcData.NpcRoutine.Count-1 > currentTask)
+            {
+                currentTask++;
+            }
         }
     }
 }

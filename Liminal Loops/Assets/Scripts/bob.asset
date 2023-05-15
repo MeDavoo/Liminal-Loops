@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d381b1119a33142a0eb1e52718da5a, type: 3}
+  m_Name: bob
+  m_EditorClassIdentifier: 
+  npcName: Bobby
+  npcObject: {fileID: 0}
+  isDemon: 0
+  isDead: 0
+  NpcRoutine:
+  - scheduleName: Wake Up
+    Hour: 0
+    Minuit: 10
+    Day: 1
+    coordinates:
+      x: 40
+      y: 10
+      z: 115
+    facingDirection: 1
+    speed: 2.5
+  - scheduleName: Go To Town
+    Hour: 0
+    Minuit: 40
+    Day: 1
+    coordinates:
+      x: 50
+      y: 10
+      z: 94
+    facingDirection: 0
+    speed: 20
+  - scheduleName: Go To Town
+    Hour: 1
+    Minuit: 30
+    Day: 1
+    coordinates:
+      x: 40
+      y: 10
+      z: 71.62
+    facingDirection: 0
+    speed: 2.5
+  - scheduleName: Go To Town
+    Hour: 0
+    Minuit: 40
+    Day: 2
+    coordinates:
+      x: 31.6
+      y: 10
+      z: 126.9
+    facingDirection: 0
+    speed: 15
