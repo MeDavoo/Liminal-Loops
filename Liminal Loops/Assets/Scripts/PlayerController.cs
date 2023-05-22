@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Vector3 moveDirection;
-    public CharacterController controller;
+    CharacterController controller;
 
     public float speed;
     public float sprintSpeed;
     private float gravity = -45;
     public float jumpHeight;
+
+    public Camera followCamera;
 
     Vector3 velocity;
     public bool isGrounded, isSprinting;
@@ -25,6 +27,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isSprinting = false;
+
+        controller = GetComponent<CharacterController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -35,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -10f;
+            velocity.y = -50f;
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -61,7 +68,8 @@ public class PlayerController : MonoBehaviour
         //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 movementInput = Quaternion.Euler(0, followCamera.transform.eulerAngles.y, 0) * new Vector3(horizontal, 0, vertical);
+        moveDirection = movementInput.normalized;
 
         if (moveDirection.magnitude >= 0.1f)
         {
