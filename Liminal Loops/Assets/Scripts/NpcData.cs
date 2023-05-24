@@ -6,7 +6,6 @@ using UnityEngine;
 public class NpcData : ScriptableObject
 {
     public string npcName;
-    public GameObject npcObject;
     public bool isDemon;
     public bool isDead;
     public List<CustomData> NpcRoutine = new List<CustomData>();
@@ -17,7 +16,7 @@ public class CustomData
 {
     public string scheduleName;
     public int Hour;
-    public int Minuit;
+    public int Minute;
     public int Day;
     public Location coordinates;
     public FacingDirection facingDirection;

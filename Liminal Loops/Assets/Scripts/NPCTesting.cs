@@ -7,11 +7,11 @@ using System;
 public class NPCTesting : MonoBehaviour
 {
 
-    [SerializeField] private Transform movePosTransform;
-
     private NavMeshAgent navMeshAgent;
 
     public NpcData npcData;
+
+    public Vector3 goToLocation;
 
     public int currentTask = 0;
     private void OnEnable()
@@ -36,13 +36,21 @@ public class NPCTesting : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
+
+    public void Update()
+    {
+        goToLocation = new Vector3(npcData.NpcRoutine[currentTask].coordinates.x, npcData.NpcRoutine[currentTask].coordinates.y, npcData.NpcRoutine[currentTask].coordinates.z);
+    }
+
+
     private void TimeCheck()
     {
-        if (TimeManager.Hour == npcData.NpcRoutine[currentTask].Hour && TimeManager.Minute == npcData.NpcRoutine[currentTask].Minuit && TimeManager.Day == npcData.NpcRoutine[currentTask].Day)
+        
+        if (TimeManager.Hour == npcData.NpcRoutine[currentTask].Hour && TimeManager.Minute == npcData.NpcRoutine[currentTask].Minute && TimeManager.Day == npcData.NpcRoutine[currentTask].Day)
         {
-            navMeshAgent.destination = new Vector3(npcData.NpcRoutine[currentTask].coordinates.x, npcData.NpcRoutine[currentTask].coordinates.y, npcData.NpcRoutine[currentTask].coordinates.z);
+            navMeshAgent.destination = goToLocation;
             navMeshAgent.speed = npcData.NpcRoutine[currentTask].speed;
-            if (npcData.NpcRoutine.Count-1 > currentTask)
+            if (npcData.NpcRoutine.Count - 1 > currentTask)
             {
                 currentTask++;
             }

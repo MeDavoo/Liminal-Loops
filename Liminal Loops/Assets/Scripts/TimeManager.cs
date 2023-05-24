@@ -18,6 +18,11 @@ public class TimeManager : MonoBehaviour
     public float minuteToRealTime = 1f;
     private float timer;
 
+    public int hour;
+    public int minute;
+    public int day;
+
+
 
     void Start()
     {
@@ -30,6 +35,11 @@ public class TimeManager : MonoBehaviour
     //
     void Update()
     {
+
+        hour = Hour;
+        minute = Minute;
+        day = Day;
+
         timer -= Time.deltaTime;
 
         if (timer <= 0)

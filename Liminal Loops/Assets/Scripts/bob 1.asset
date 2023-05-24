@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32d381b1119a33142a0eb1e52718da5a, type: 3}
-  m_Name: bob
+  m_Name: bob 1
   m_EditorClassIdentifier: 
   npcName: Bobby
   isDemon: 0
@@ -18,31 +18,31 @@ MonoBehaviour:
   NpcRoutine:
   - scheduleName: Wake
     Hour: 0
-    Minute: 10
+    Minute: 15
     Day: 1
     coordinates:
-      x: 140
+      x: 120
       y: 15
-      z: 144
+      z: 155
     facingDirection: 0
-    speed: 16.1
+    speed: 10.4
   - scheduleName: Town
     Hour: 0
-    Minute: 20
+    Minute: 30
+    Day: 1
+    coordinates:
+      x: 144
+      y: 15
+      z: 160
+    facingDirection: 0
+    speed: 9.3
+  - scheduleName: Beach
+    Hour: 0
+    Minute: 45
     Day: 1
     coordinates:
       x: 150
       y: 15
       z: 130
-    facingDirection: 0
-    speed: 9.3
-  - scheduleName: Beach
-    Hour: 0
-    Minute: 30
-    Day: 1
-    coordinates:
-      x: 140
-      y: 15
-      z: 144
     facingDirection: 0
     speed: 21.6
