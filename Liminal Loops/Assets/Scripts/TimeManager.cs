@@ -12,7 +12,6 @@ public class TimeManager : MonoBehaviour
 
     public static int Minute { get; private set; }
     public static int Hour { get; private set; }
-
     public static int Day { get; private set; }
 
     public float minuteToRealTime = 1f;
@@ -21,6 +20,9 @@ public class TimeManager : MonoBehaviour
     public int hour;
     public int minute;
     public int day;
+
+
+    public static int SunRotationtTime { get; private set; }
 
 
 
@@ -45,6 +47,7 @@ public class TimeManager : MonoBehaviour
         if (timer <= 0)
         {
             Minute++;
+            SunRotationtTime++;
             OnMinuteChanged?.Invoke();
             if (Hour >= 23 && Minute >= 60)
             {
